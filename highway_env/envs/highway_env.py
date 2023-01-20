@@ -86,11 +86,17 @@ class HighwayEnv(AbstractEnv):
         The reward is defined to foster driving at high speed, on the rightmost lanes, and to avoid collisions.
         :param action: the last action performed
         :return: the corresponding reward
-        """
-        rewards = self._rewards(action)
+         rewards = self._rewards(action)
         reward = sum(self.config.get(name, 0) * reward for name, reward in rewards.items())
         if self.config["normalize_reward"]:
             reward = utils.lmap(reward,
+                                [self.config["collision_reward"],
+                                 self.config["high_speed_reward"] + self.config["right_lane_reward"]],
+                                [0, 1])
+        """
+        rewards = self._rewards(action)
+        reward = rewards['collision_reward']+rewards['right_lane_reward']+rewards['high_speed_reward']
+        reward = utils.lmap(reward,
                                 [self.config["collision_reward"],
                                  self.config["high_speed_reward"] + self.config["right_lane_reward"]],
                                 [0, 1])
