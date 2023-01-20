@@ -94,7 +94,7 @@ class HighwayEnv(AbstractEnv):
                                 [self.config["collision_reward"],
                                  self.config["high_speed_reward"] + self.config["right_lane_reward"]],
                                 [0, 1])
-        reward *= rewards['on_road_reward']+rewards['high_speed_reward']+10*rewards['right_lane_reward']
+        reward *= rewards['on_road_reward']*rewards['right_lane_reward']
         return reward
 
     def _rewards(self, action: Action) -> Dict[Text, float]:
