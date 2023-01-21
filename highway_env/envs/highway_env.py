@@ -95,7 +95,7 @@ class HighwayEnv(AbstractEnv):
                                 [0, 1])
         """
         rewards = self._rewards(action)
-        reward = rewards['collision_reward']
+        reward = rewards['collision_reward']+rewards['right_lane_reward']+rewards['high_speed_reward']
         reward = utils.lmap(reward,
                                 [self.config["collision_reward"],
                                  self.config["high_speed_reward"] + self.config["right_lane_reward"]],
