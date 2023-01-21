@@ -101,7 +101,7 @@ class HighwayEnv(AbstractEnv):
                                  self.config["high_speed_reward"] + self.config["right_lane_reward"]],
                                 [0, 1])
         reward *= rewards['on_road_reward']
-        return 0
+        return reward
 
     def _rewards(self, action: Action) -> Dict[Text, float]:
         neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
