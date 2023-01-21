@@ -95,13 +95,13 @@ class HighwayEnv(AbstractEnv):
                                 [0, 1])
         """
         rewards = self._rewards(action)
-        reward = rewards['collision_reward']+rewards['right_lane_reward']+rewards['high_speed_reward']
+        reward = 100*rewards['collision_reward']+rewards['right_lane_reward']+rewards['high_speed_reward']
         reward = utils.lmap(reward,
                                 [self.config["collision_reward"],
                                  self.config["high_speed_reward"] + self.config["right_lane_reward"]],
                                 [0, 1])
         reward *= rewards['on_road_reward']
-        return 0
+        return reward
 
     def _rewards(self, action: Action) -> Dict[Text, float]:
         neighbours = self.road.network.all_side_lanes(self.vehicle.lane_index)
